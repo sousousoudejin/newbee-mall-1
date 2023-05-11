@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ltd.newbee.mall.dao.UserDao">
+    <!-- 配置表结构和实体类之间的映射关系 -->
+    <resultMap id="userResult" type="ltd.newbee.mall.entity.User">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="password" property="password"/>
+    </resultMap>
+
+    <sql id="userColumns">
+        id,name,password
+    </sql>
+    
+    <select id="findAllUsers" resultMap="userResult">
+        select 
+            <include refid="userColumns"></include>
+            from tb_user order by id desc;
+    </select>
+
+    <insert id="insertUser" parameterType="ltd.newbee.mall.entity.User">
+        insert into tb_user(name,password) values(#{name},#{password});
+    </insert>
+
+    <update id="updUser" parameterType="ltd.newbee.mall.entity.User">
+        update tb_user
+            <set>
+                <if test="user.name != null">
+                    NAME = #{user.name},
+                </if>
+                <if test="user.password != null">
+                    PASSWORD = #{user.password}
+                </if>
+            </set>
+        where id = #{user.id}
+    </update>
+    
+    <delete id="delUser" parameterType="java.lang.Integer">
+        delete from tb_user where id = #{id}
+    </delete>
+
+    <select id="findUserById" parameterType="java.lang.Integer" resultMap="userResult">
+        select
+            <include refid="userColumns"></include>
+            from tb_user where id = #{id}
+    </select>
+
+    <select id="findUserCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(1) from tb_user where id = #{id}
+    </select>
+
+</mapper>
