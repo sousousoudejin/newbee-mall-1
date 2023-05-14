@@ -15,6 +15,10 @@
     <description>newbee-mall</description>
     <properties>
         <java.version>1.8</java.version>
+        <hutool-captcha.version>5.8.7</hutool-captcha.version>
+        <mybatis.start.version>2.2.2</mybatis.start.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
     <dependencies>
         <dependency>
@@ -52,7 +56,20 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.2.0</version>
+            <version>${mybatis.start.version}</version>
+        </dependency>
+
+        <!-- easy-captcha 验证码 -->
+        <!--<dependency>
+            <groupId>com.github.whvcse</groupId>
+            <artifactId>easy-captcha</artifactId>
+            <version>1.6.2</version>
+        </dependency>-->
+        <!-- 验证码 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-captcha</artifactId>
+            <version>${hutool-captcha.version}</version>
         </dependency>
     </dependencies>
 

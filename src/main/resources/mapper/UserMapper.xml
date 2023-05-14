@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ltd.newbee.mall.dao.UserDao">
+<mapper namespace="ltd.newbee.mall.dao.UserMapper">
     <!-- 配置表结构和实体类之间的映射关系 -->
     <resultMap id="userResult" type="ltd.newbee.mall.entity.User">
         <result column="id" property="id"/>
@@ -48,6 +48,18 @@
 
     <select id="findUserCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select count(1) from tb_user where id = #{id}
+    </select>
+
+    <select id="findUsers" resultType="ltd.newbee.mall.entity.User">
+        select
+            <include refid="userColumns"></include>
+            from tb_user order by id desc
+            <if test="start != null and limit != null">
+                limit #{start},#{limit}
+            </if>
+    </select>
+    <select id="getTotalUser" resultType="java.lang.Integer">
+        select count(1) from tb_user;
     </select>
 
 </mapper>

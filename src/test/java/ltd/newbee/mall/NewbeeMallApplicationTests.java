@@ -1,10 +1,16 @@
 package ltd.newbee.mall;
 
+import com.wf.captcha.SpecCaptcha;
+import com.wf.captcha.base.Captcha;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.sql.DataSource;
+import java.awt.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -59,6 +65,32 @@ class NewbeeMallApplicationTests {
                     con.close();
                 }
             } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+    @Test
+    void captchaDemo() {
+        FileOutputStream fileOutputStream=null;
+
+        try {
+            SpecCaptcha captcha = new SpecCaptcha(130, 48, 5);
+            captcha.setFont(Captcha.FONT_6);
+            captcha.setCharType(Captcha.TYPE_NUM_AND_UPPER);
+            fileOutputStream = new FileOutputStream(new File("C:\\Users\\souso\\Desktop\\a.png"));
+            captcha.out(fileOutputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (FontFormatException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (fileOutputStream != null) {
+                    fileOutputStream.close();
+                }
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
