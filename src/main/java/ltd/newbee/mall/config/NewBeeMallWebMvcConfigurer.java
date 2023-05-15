@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.annotation.Resource;
 
 @Configuration
-public class NeeBeeMallWebMvcConfigurer implements WebMvcConfigurer {
+public class NewBeeMallWebMvcConfigurer implements WebMvcConfigurer {
 
     @Resource
     private AdminLoginInterceptor adminLoginInterceptor;
@@ -19,7 +19,6 @@ public class NeeBeeMallWebMvcConfigurer implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(adminLoginInterceptor)
                 .addPathPatterns("/admin/**")
-                .excludePathPatterns("/admin/upload/files")
                 .excludePathPatterns("/admin/login")
                 .excludePathPatterns("/admin/dist/**")
                 .excludePathPatterns("/admin/plugins/**");
@@ -27,6 +26,6 @@ public class NeeBeeMallWebMvcConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**").addResourceLocations(Constants.FILE_UPLOAD_DIC);
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:"+Constants.FILE_UPLOAD_DIC);
     }
 }

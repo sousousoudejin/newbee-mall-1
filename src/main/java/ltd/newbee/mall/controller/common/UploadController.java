@@ -68,8 +68,9 @@ public class UploadController {
             }
 
             file.transferTo(newFile);
-
-            return ResultGenerator.genSuccessResult(NewBeeMallUtils.getHost(new URI(request.getRequestURI()+""))+"/upload/"+newFile);
+            Result result = ResultGenerator.genSuccessResult();
+            result.setData(NewBeeMallUtils.getHost(new URI(request.getRequestURI()+""))+"/upload/"+newName);
+            return result;
         } catch (IOException e) {
             e.printStackTrace();
             return ResultGenerator.genFailResult("文件上传失败");
@@ -141,7 +142,7 @@ public class UploadController {
                 try {
                     file.transferTo(newFile);
 
-                    finalFileNames.add(NewBeeMallUtils.getHost(new URI(request.getRequestURI()))+ "/upload/" + newFile);
+                    finalFileNames.add(NewBeeMallUtils.getHost(new URI(request.getRequestURI()))+ "/upload/" + newName);
                 } catch (IOException e) {
                     e.printStackTrace();
                     //throw new RuntimeException(e);
