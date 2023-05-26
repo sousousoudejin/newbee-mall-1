@@ -1,6 +1,8 @@
 package ltd.newbee.mall.dao;
 
+import ltd.newbee.mall.common.NewBeeMallCategoryLevelEnum;
 import ltd.newbee.mall.entity.Carousel;
+import ltd.newbee.mall.entity.GoodsCategory;
 import ltd.newbee.mall.util.PageQueryUtil;
 
 import java.util.List;
@@ -17,4 +19,8 @@ public interface CarouselMapper {
     Carousel selectByPrimaryKey(Integer id);
 
     boolean deleteBatch(Integer[] ids);
+
+    List<GoodsCategory> selectByLevelAndParentIdsAndNumber(List<Long> parentIds, int categoryLevel, int number);
+
+    List<Carousel> findCarouselsByNum(int number);
 }

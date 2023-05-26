@@ -6,19 +6,21 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class GoodsCategory {
+public class IndexConfig {
 
-    private Long categoryId;
+    private Long configId;
 
-    private Integer categoryLevel;
+    private String configName;
 
-    private Long parentId;
+    private Byte configType;
 
-    private String categoryName;
+    private Long goodsId;
 
-    private Integer categoryRank;
+    private String redirectUrl;
 
-    private Integer isDeleted;
+    private Integer configRank;
+
+    private Byte isDeleted;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
