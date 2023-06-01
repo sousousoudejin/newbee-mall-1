@@ -14,4 +14,6 @@ public interface NewBeeMallGoodsService {
     String updateNewBeeMallGoods(NewBeeMallGoods goods);
 
     boolean batchUpdateSellStatus(Long[] ids, int sellStatus);
+
+    PageResult searchNewBeeMallGoods(PageQueryUtil pageUtil);
 }

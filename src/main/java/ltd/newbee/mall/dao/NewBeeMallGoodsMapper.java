@@ -10,7 +10,7 @@ public interface NewBeeMallGoodsMapper {
 
     List<NewBeeMallGoods> findNewBeeMallGoodsList(PageQueryUtil pageQueryUtil);
 
-    int getTotalNewBeeMallGoodsBySearch();
+    int getTotalNewBeeMallGoodsBySearch(PageQueryUtil pageQueryUtil);
 
     int insertSelective(NewBeeMallGoods goods);
 
@@ -19,4 +19,6 @@ public interface NewBeeMallGoodsMapper {
     int batchUpdateSellStatus(Long[] orderIds, int sellStatus);
 
     List<NewBeeMallGoods> selectByPrimaryKeys(List<Long> goodIds);
+
+    List<NewBeeMallGoods> findNewBeeMallGoodsListBySearch(PageQueryUtil pageUtil);
 }

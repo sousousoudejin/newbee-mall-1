@@ -1,6 +1,9 @@
 package ltd.newbee.mall.service.impl;
 
+import ltd.newbee.mall.common.Constants;
+import ltd.newbee.mall.common.NewBeeMallCategoryLevelEnum;
 import ltd.newbee.mall.common.ServiceResultEnum;
+import ltd.newbee.mall.controller.vo.SearchPageCategoryVO;
 import ltd.newbee.mall.dao.GoodsCategoryMapper;
 import ltd.newbee.mall.entity.GoodsCategory;
 import ltd.newbee.mall.service.NewBeeMallGoodsCategoryService;
@@ -9,6 +12,7 @@ import ltd.newbee.mall.util.PageResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -53,5 +57,35 @@ public class NewBeeMallGoodsCategoryServiceImpl implements NewBeeMallGoodsCatego
     @Override
     public boolean deleteBatch(Integer[] array) {
         return goodsCategoryMapper.deleteBatch(array);
+    }
+
+    @Override
+    public SearchPageCategoryVO getCategoriesForSearch(Long categoryId) {
+
+        SearchPageCategoryVO categoryVO = new SearchPageCategoryVO();
+
+        GoodsCategory thirdCategory = goodsCategoryMapper.selectByPrimaryKey(categoryId);
+
+        if (thirdCategory != null && thirdCategory.getCategoryLevel() == NewBeeMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
+
+            GoodsCategory secondCategory = goodsCategoryMapper.selectByPrimaryKey(thirdCategory.getParentId());
+
+            if (secondCategory != null && secondCategory.getCategoryLevel() == NewBeeMallCategoryLevelEnum.LEVEL_TWO.getLevel()) {
+
+                List<GoodsCategory> goodsCategories = goodsCategoryMapper.selectByLevelAndParentIdsAndNumber(Collections.singletonList(secondCategory.getCategoryId()), NewBeeMallCategoryLevelEnum.LEVEL_THREE.getLevel(), Constants.SEARCH_CATEGORY_NUMBER);
+
+                categoryVO.setCurrentCategoryName(thirdCategory.getCategoryName());
+
+                categoryVO.setSecondLevelCategoryName(secondCategory.getCategoryName());
+
+                categoryVO.setThirdLevelCategoryList(goodsCategories);
+
+                return categoryVO;
+
+            }
+
+        }
+
+        return null;
     }
 }

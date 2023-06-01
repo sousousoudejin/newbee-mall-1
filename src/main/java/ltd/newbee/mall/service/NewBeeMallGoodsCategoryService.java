@@ -1,5 +1,6 @@
 package ltd.newbee.mall.service;
 
+import ltd.newbee.mall.controller.vo.SearchPageCategoryVO;
 import ltd.newbee.mall.entity.GoodsCategory;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
@@ -18,4 +19,6 @@ public interface NewBeeMallGoodsCategoryService {
     String updateGoodsCategory(GoodsCategory category);
 
     boolean deleteBatch(Integer[] ids);
+
+    SearchPageCategoryVO getCategoriesForSearch(Long categoryId);
 }
