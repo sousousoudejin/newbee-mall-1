@@ -112,6 +112,7 @@ public class NewbeeMallCarouselServiceImpl implements NewBeeMallCarouselService 
 
                         for (GoodsCategory goodsCategory : goodsCategories) {
                             NewBeeMallIndexCategoryVO firstCategory = new NewBeeMallIndexCategoryVO();
+                            BeanUtil.copyProperties(goodsCategory,firstCategory);
                             if (firstCategories.containsKey(goodsCategory.getCategoryId())) {
                                 firstCategory.setSecondLevelCategoryVOS(firstCategories.get(goodsCategory.getCategoryId()));
                                 categoryVOS.add(firstCategory);
