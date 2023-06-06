@@ -96,6 +96,27 @@ public class ShoppingCartController {
         return ResultGenerator.genFailResult(ServiceResultEnum.OPERATE_ERROR.getResult());
     }
 
+    @GetMapping("/cart-shop/settle")
+    public String settlePage(HttpServletRequest request,
+                             HttpSession session) {
+
+        int priceTotal = 0;
+        NewBeeMallUserVO userVO = (NewBeeMallUserVO) session.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        List<NewBeeMallShoppingCartItemVO> items = cartService.getMyShoppingCartItems(userVO.getUserId());
+
+        if (CollectionUtils.isEmpty(items)) return "/shop-cart";
+
+        for (NewBeeMallShoppingCartItemVO item : items) {
+            priceTotal += item.getGoodsCount() * item.getSellingPrice();
+        }
+
+        if (priceTotal < 1)  NewBeeMallException.fail("购物车价格异常!");
+
+        request.setAttribute("priceTotal",priceTotal);
+        request.setAttribute("myShoppingCartItems",items);
+
+        return "mall/order-settle";
+    }
 
 
 }

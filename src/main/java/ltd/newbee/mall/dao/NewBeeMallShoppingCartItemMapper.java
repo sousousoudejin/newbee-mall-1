@@ -18,4 +18,6 @@ public interface NewBeeMallShoppingCartItemMapper {
     int updateByPrimaryKeySelective(NewBeeMallShoppingCartItem item);
 
     int deleteByPrimaryKey(Long itemId);
+
+    int deleteBatch(List<Long> cartItemIds);
 }

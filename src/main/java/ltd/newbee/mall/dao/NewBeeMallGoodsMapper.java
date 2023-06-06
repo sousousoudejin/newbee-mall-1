@@ -1,6 +1,7 @@
 package ltd.newbee.mall.dao;
 
 import ltd.newbee.mall.entity.NewBeeMallGoods;
+import ltd.newbee.mall.entity.StockNumDTO;
 import ltd.newbee.mall.util.PageQueryUtil;
 
 import java.util.List;
@@ -21,4 +22,8 @@ public interface NewBeeMallGoodsMapper {
     List<NewBeeMallGoods> selectByPrimaryKeys(List<Long> goodIds);
 
     List<NewBeeMallGoods> findNewBeeMallGoodsListBySearch(PageQueryUtil pageUtil);
+
+    int updateStockNum(List<StockNumDTO> stockNumDTOS);
+
+    int recoverStockNum(List<StockNumDTO> stockNumDTOS);
 }
